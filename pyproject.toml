@@ -1,0 +1,11 @@
+[project]
+name = "yourproject"
+version = "0.1.0"
+description = "A sample Python project"
+authors = [
+  { name = "Himadri" }
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
