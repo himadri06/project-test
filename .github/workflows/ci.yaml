@@ -1,17 +1,17 @@
-name: CI Pipeline
+name: Test and Build Wheel
 
 on:
-  pull_request:
-    branches: [ "main" ]
   push:
-    branches: [ "dev" ]
+    branches: ["dev"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Python
@@ -19,17 +19,21 @@ jobs:
       with:
         python-version: "3.10"
 
-    - name: Install pytest
-      run: pip install pytest
+    - name: Install dependencies
+      run: |
+        pip install pytest
+
+    - name: Install build tools
+      run: pip install build wheel
 
     - name: Run tests
       run: pytest -v
-    
-    - name: Build python wheel file
+
+    - name: Build wheel file
       run: python -m build
 
-    - name: Upload wheel as an artifact
-      uses: actions/upload-artifact@v4
+    - name: Upload wheel as artifact
+      uses: actions/upload-artifact@v3
       with:
         name: wheel-package
-        path: dist/*.whl 
+        path: dist/*.whl
