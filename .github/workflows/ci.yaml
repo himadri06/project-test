@@ -24,3 +24,12 @@ jobs:
 
     - name: Run tests
       run: pytest -v
+    
+    - name: Build python wheel file
+      run: python -m build
+
+    - name: Upload wheel as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: wheel-package
+        path: dist/*.whl 
